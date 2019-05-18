@@ -3,14 +3,12 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 're
 
 class DishDetail extends Component {
 
-  constructor(props) {
-      super(props);
-
-      console.log('DishDetail Component constructor is invoked');
-  }
-
   componentDidMount() {
       console.log('DishDetail Component componentDidMount is invoked');
+  }
+
+  componentDidUpdate() {
+      console.log('DishDetail Component componentDidUpdate is invoked');
   }
 
   renderDish(dish) {
@@ -39,14 +37,16 @@ class DishDetail extends Component {
       return (
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
-          {dish.comments.map((comment) => {
-            return (
-              <ul class= "list-unstyled">
-                <li>{comment.comment}<br/><br/></li>
-                <li>--{comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
-              </ul>
-            );
-          })}
+          <ul className= "list-unstyled">
+            {dish.comments.map((comment) => {
+              return (
+                <li key={comment.id}>
+                <p>{comment.comment}</p>
+                <p>--{comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       );
     }
@@ -58,14 +58,24 @@ class DishDetail extends Component {
   }
 
   render() {
-    return (
-      <div className="container">
-        <div className="row">
-          {this.renderDish(this.props.dish)}
-          {this.renderComments(this.props.dish)}
-        </div>
-      </div>
-    );
+
+    console.log('DishDetail Component render is invoked');
+
+      if (this.props.dish != null) {
+        return (
+          <div className="container">
+            <div className="row">
+              {this.renderDish(this.props.dish)}
+              {this.renderComments(this.props.dish)}
+            </div>
+          </div>
+        );
+      }
+      else {
+        return (
+          <div></div>
+        );
+      }
   }
 
 }
