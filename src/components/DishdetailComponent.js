@@ -36,19 +36,17 @@ class DishDetail extends Component {
 
   renderComments(dish) {
     if (dish != null) {
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       return (
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
-          <p>{dish.comments.map((comment) => {
+          {dish.comments.map((comment) => {
             return (
               <ul class= "list-unstyled">
                 <li>{comment.comment}<br/><br/></li>
-                <li>--{comment.author} , {months[new Date(comment.date).getMonth()]} {new Date(comment.date).getDay()}, {new Date(comment.date).getFullYear()}</li>
+                <li>--{comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
               </ul>
             );
-          })}</p>
+          })}
         </div>
       );
     }
@@ -60,14 +58,11 @@ class DishDetail extends Component {
   }
 
   render() {
-
-    console.log('DishDetail Component render is invoked');
-
     return (
       <div className="container">
         <div className="row">
-          {this.renderDish(this.props.selectedDish)}
-          {this.renderComments(this.props.selectedDish)}
+          {this.renderDish(this.props.dish)}
+          {this.renderComments(this.props.dish)}
         </div>
       </div>
     );
