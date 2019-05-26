@@ -6,20 +6,18 @@ function About(props) {
 
     function RenderLeader({leader}) {
       return (
-        <Card className="leader">
-          <div className="container">
-            <div className="row text-left">
-              <div className="col-12 col-sm-2">
-                <CardImg width="100%" src={leader.image} alt={leader.name} />
-              </div>
-              <div className="col-12 col-sm-10">
-                <CardTitle>{leader.name}</CardTitle>
-                <CardBody>{leader.designation}</CardBody>
-                <CardBody>{leader.description}</CardBody>
-              </div>
-            </div>
-          </div>
-        </Card>
+        <div key={leader.id} className="row">
+            <Media tag="li">
+                <Media left middle className="col-12 col-sm-2">
+                    <Media object src={leader.image} alt={leader.name} />
+                </Media>
+                <Media body className="col-12 col-sm-10">
+                    <Media heading>{leader.name}</Media>
+                    <p>{leader.designation}</p>
+                    <p>{leader.description}</p>
+                </Media>
+            </Media>
+        </div>
       );
     }
 
